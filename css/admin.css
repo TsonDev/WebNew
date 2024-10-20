@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.form-student,.list-student,.list-student-delete{
+    width: 550px;
+    border: 2px solid black;
+    margin: 10px;
+    padding: 20px;
+    float: left;
+}
+.list-student{
+    width: 790px;
+  
+}
+.form-student h3{
+    padding: 10px;
+}
+.form-student label{
+    width: 150px;
+    float: left;
+}
+.form-student input{
+    margin-bottom: 10px;
+}
+.form-student button{
+    width: 100px;
+}
+span{
+
+    background-color: yellow;
+    color: red;
+}
+.list-student-delete{
+    width: 700px;
+    border: 2px solid black;
+}
