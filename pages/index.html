@@ -29,16 +29,21 @@
               </li>
             </ul>
             <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search">
+              <button type="button" class="btn btn-outline-success"  onclick="find()">Search</button>
             </form>
           </div>
         </div>
         <div id="hthi">hien thi dang nhap</div>
       </nav>
       <!-- nav end -->
+      <div class="list-student" id="list-student">
+        <h3>Danh sách sinh viên</h3>
+        <table id="list-students" width="750" border="1" style="text-align: center; border-collapse: collapse;" cellpadding="0">
+        </table>
+    </div>
       <!-- tab -->
-       <div style="width: 400px;">
+       <!-- <div style="width: 400px;">
         <div class="card">
           <img src="..." class="card-img-top" alt="...">
         
@@ -48,24 +53,9 @@
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
-        
-        <!-- <div class="card" aria-hidden="true">
-          <img src="..." class="card-img-top" alt="..."> -->
-          <!-- <div class="card-body">
-            <h5 class="card-title placeholder-glow">
-              <span class="placeholder col-6"></span>
-            </h5>
-            <p class="card-text placeholder-glow">
-              <span class="placeholder col-7"></span>
-              <span class="placeholder col-4"></span>
-              <span class="placeholder col-4"></span>
-              <span class="placeholder col-6"></span>
-              <span class="placeholder col-8"></span>
-            </p>
-            <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
-          </div> -->
+    
         </div>
-       </div>
+       </div> -->
       <!-- add -->
       <nav aria-label="Page navigation example" style="position: absolute; bottom: 0;">
         <ul class="pagination">
@@ -77,5 +67,6 @@
         </ul>
       </nav>
         <script src="../js/signIn.js"></script>
+        <script src="../js/index.js"></script>
 </body>
 </html>

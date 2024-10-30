@@ -11,6 +11,8 @@
     <body onload="renderListStudent()">
         <div class="form-student">
             <h3>Thông tin sinh viên</h3>
+            <input type="file" id="image" accept="image/*">
+
             <label for="">Họ và tên</label>
             <input type="text" id="fullname" required>
             <span id="fullname-error"></span>
@@ -50,8 +52,8 @@
     </div>
     
      <!-- ket thuc tim kiem -->
-        </div>
-        <div class="list-student" id="list-student">
+      
+        <div class="list-student" id="list-student" style="float: left; position: absolute; right: 10%;top: 0;">
             <h3>Danh sách sinh viên</h3>
             <table id="list-students" width="750" border="1" style="text-align: center; border-collapse: collapse;" cellpadding="0">
             </table>

@@ -9,19 +9,23 @@ e.preventDefault();
 // validate
 
 //lấy data từ local
-const userLocal =JSON.parse(localStorage.getItem('students')) || [] 
+const userLocal =JSON.parse(localStorage.getItem('users')) || [] 
 let userLocalAd = JSON.parse(localStorage.getItem('usersAd')) || [];
 console.log(userLocal)
 // find data từ local
 const findUser = userLocal.find((user) =>
-     user.fullname === usernameElement.value
- && user.phone === passwordElement.value)
+     user.emailAddress === usernameElement.value
+ && user.password === passwordElement.value)
  console.log(findUser)
 // xử lí
-if(findUser){
-     window.location.href='index.html'
-      document.getElementById('hthi').innerHTML="userLocal.fullname"
-     
+if (findUser) {
+    // Chuyển hướng đến index.html
+    window.location.href = 'index.html';
+
+    // Hiển thị ảnh người dùng
+    document.getElementById('hthi').innerHTML = `<img src="${findUser.image}" alt="User Image" style="width: 100px; height: auto;">`;
+} else {
+    alert('Đăng nhập không thành công. Vui lòng kiểm tra lại tên đăng nhập và mật khẩu.');
 }
 
 
