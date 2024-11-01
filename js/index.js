@@ -61,3 +61,34 @@ function renderListStudent(students = null) {
 
     document.getElementById('list-students').innerHTML = tableContent;
 }
+// hiện thị ảnh khi đăng nhập
+document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const hthiElement = document.getElementById('hthi');
+
+    if (currentUser && currentUser.image) {
+        hthiElement.innerHTML = `<img src="${currentUser.image}" alt="User Image" style="width: 100px; height: auto;">`;
+    } else {
+        hthiElement.textContent = 'Chưa đăng nhập';
+    }
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    const signinLink = document.querySelector('a[href="./SignIn.html"]');
+    const signupLink = document.querySelector('a[href="./SignUp.html"]');
+
+    if (currentUser) {
+        // Đổi "Đăng nhập" thành "Đăng xuất"
+        signinLink.textContent = 'Đăng xuất';
+        signinLink.href = '#';
+        signinLink.addEventListener('click', function () {
+            // Xóa thông tin người dùng khỏi localStorage và làm mới trang
+            localStorage.removeItem('currentUser');
+            location.reload();
+        });
+
+        // Ẩn "Đăng kí"
+        signupLink.style.display = 'none';
+    }
+});
