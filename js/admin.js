@@ -4,11 +4,13 @@ let editingIndex = null; // Biến toàn cục để lưu vị trí sinh viên �
 function save() {
     let imageInput = document.getElementById('image');
     let fullname = document.getElementById('fullname').value;
+    let birthday = document.getElementById('birthday').value;
     let email = document.getElementById('email').value;
     let phone = document.getElementById('phone').value;
     let pass = document.getElementById('pass').value;
     let address = document.getElementById('address').value;
     let classElem = document.getElementById('class').value;
+    let subject = document.getElementById('subject').value
     let point = document.getElementById('point').value;
     let gender = '';
 
@@ -38,6 +40,7 @@ function save() {
             userId: userId,
             image: base64Image, // Lưu ảnh dưới dạng base64
             userName: fullname,
+            userBirth : birthday,
             emailAddress: email,
             phoneNumber: phone,
             password: pass,
@@ -80,10 +83,12 @@ function renderListStudent(students = null) {
         <td>#</td>
         <td>Image</td>
         <td>Họ và tên</td>
+        <td>Ngày sinh</td>
         <td>Email</td>
         <td>Điện thoại</td>
         <td>Password</td>
         <td>Lớp</td>
+        <td>Môn</td>
         <td>Điểm tb</td>
         <td>Quê quán</td>
         <td>Giới tính</td>
@@ -97,11 +102,14 @@ function renderListStudent(students = null) {
             <td>${student.userId}</td>
             <td><img src="${student.image}" alt="student image" width="50" height="50"/></td>
             <td>${student.userName}</td>
+            <td>${student.userBirth}</td>
             <td>${student.emailAddress}</td>
             <td>${student.phoneNumber}</td>
             <td>${student.password}</td>
             <td>${student.class}</td>
-            <td>${student.point}</td>
+            <td><a href='#' onclick='classSubject(${student.userId})'>Chi tiết</a></td>
+
+            <td><a href ='#'onclick = 'classPoint()'>Chi tiết</a></td>
             <td>${student.address}</td>
             <td>${genderTable}</td>
             <td>
@@ -109,7 +117,7 @@ function renderListStudent(students = null) {
             </td>
         </tr>`;
     });
-
+    
     document.getElementById('list-students').innerHTML = tableContent;
 }
 
@@ -128,11 +136,12 @@ function editStudent(id) {
 
     if (student) {
         document.getElementById('fullname').value = student.userName;
+        document.getElementById('birthday').value = student.userBirth;
         document.getElementById('email').value = student.emailAddress;
         document.getElementById('phone').value = student.phoneNumber;
         document.getElementById('address').value = student.address;
         document.getElementById('class').value = student.class;
-        document.getElementById('point').value = student.point;
+        // document.getElementById('point').value = student.point;
         document.getElementById('pass').value = student.password;
         if (student.gender === '1') {
             document.getElementById('male').checked = true;
@@ -141,19 +150,48 @@ function editStudent(id) {
         }
 
         editingIndex = id; // Đặt chế độ chỉnh sửa
+        // alert("Cập nhật sinh viên thành công")
     } else {
         alert('Student not found');
     }
 }
 
-// Hàm tìm kiếm theo tên
+// Hàm tìm kiếm theo id
+function findById() {
+    let searchName = document.getElementById('search-id').value.trim();
+    let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+
+    let filteredStudents = students.filter(student => 
+        student.userId.toString().includes(searchName)
+    );
+
+    renderListStudent(filteredStudents);
+}
 function findByName() {
     let searchName = document.getElementById('search-name').value.trim().toLowerCase();
     let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
 
     let filteredStudents = students.filter(student => 
-        student.userName.toLowerCase().includes(searchName)
+        student.userName.toString().toLowerCase().includes(searchName)
     );
 
     renderListStudent(filteredStudents);
+}
+
+function classPoint(){
+    setTimeout(function(){
+        window.location.href="admin_point.html"
+    },2000)
+    
+}
+// menu popup
+document.getElementById('menuButton').addEventListener('click', function() {
+    const popup = document.getElementById('searchPopup');
+    popup.style.display = popup.style.display === 'none' || popup.style.display === '' ? 'block' : 'none';
+  });
+
+function classSubject(userId) {
+    setTimeout(function() {
+        window.location.href = `admin_subject.html?id=${userId}`;
+    }, 200);
 }

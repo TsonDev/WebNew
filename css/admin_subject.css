@@ -4,14 +4,14 @@
     box-sizing: border-box;
 }
 .form-student,.list-student,.list-student-delete{
-    width: 450px;
+    width: 550px;
     border: 2px solid black;
     margin: 10px;
     padding: 20px;
     float: left;
 }
 .list-student{
-    width: 890px;
+    width: 790px;
   
 }
 .form-student h3{
@@ -36,26 +36,3 @@ span{
     width: 700px;
     border: 2px solid black;
 }
-.popup {
-    display: none;
-    position: absolute;
-    top: 5%;
-    right: 0%;
-    /* transform: translate(-50%, -50%); */
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    z-index: 5;
-  }
-#menuButton{
-    position: absolute;
-    top: 0%;
-    right: 0%;
-    width: 50px;
-    height: 30px;
-    background-color: black;
-    color: white;
-    z-index: 5;
-}
-  
