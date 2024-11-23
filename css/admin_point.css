@@ -96,7 +96,6 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     font-size: 14px;
-    white-space: nowrap; /* Không cho phép xuống dòng */
 }
 
 #list-students th,

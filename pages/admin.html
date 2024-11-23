@@ -12,7 +12,7 @@
 <body>
 
     <body onload="renderListStudent()">
-        <!-- tim kiem -->
+        <!-- popup -->
         <button id="menuButton">Menu</button>
         <div id="searchPopup" class="popup">
             <input type="text" placeholder="Tìm kiếm..." id="search-id">
@@ -25,12 +25,14 @@
             <br>
             <input type="text" placeholder="Lọc..." id="search-name">
             <button id="searchButton" onclick="findByName()">Lọc tên</button>
+            <br>
+            <button onclick="Logout()">Đăng xuất</button>
         </div>
 
-        <!-- ket thuc tim kiem -->
+        <!-- popup -->
         <div class="form-student">
             <h3>Thông tin sinh viên</h3>
-            <label for="">picture</label>
+            <label for="">Ảnh</label>
             <input type="file" id="image" accept="image/*">
 
             <label for="">Họ và tên</label>
@@ -54,12 +56,7 @@
             <label for="">Lớp</label>
             <input type="text" id="class">
             <br>
-            <label for="">Môn học</label>
-            <input type="text" id="subject">
-            <br>
-            <label for="">Điểm tb</label>
-            <input type="number" id="point">
-            <br>
+
             <label for="">Quê quán</label>
             <input type="text" id="address">
             <br>
@@ -70,20 +67,25 @@
             <br>
             <label for="">&nbsp;</label>
             <button onclick="save()">Lưu lại</button>
-
-            <div class="list-student" id="list-student" style="float: left; position: absolute; right: 0%;top: 0;">
-                <h3>Danh sách sinh viên</h3>
-                <table id="list-students" width="750" border="1" style="text-align: center; border-collapse: collapse;"
-                    cellpadding="0">
-                </table>
-            </div>
-            <div class="list-student-delete" id="list-student-delete" style="display: none;">
+            <!-- <div class="list-student-delete" id="list-student-delete" style="display: none;">
                 <h3>Danh sách sinh viên đã xóa</h3>
-                <table id="list-students-delete" width="750" border="1"
+                <table id="list-students-delete"
                     style="text-align: center; border-collapse: collapse;" cellpadding="0">
                 </table>
-            </div>
-            <script src="../js/admin.js"></script>
+            </div> -->
+            <!-- <h1>Import Data to LocalStorage</h1>
+            <button onclick="saveStudentsToLocal()">Save Data to LocalStorage</button> -->
+
+            <!-- Import file chứa dữ liệu -->
+            <!-- <script src="../js/exampData.js"></script> -->
+        </div>
+
+        <div class="list-student" id="list-student">
+            <h3>Danh sách sinh viên</h3>
+            <table id="list-students" style="text-align: center; border-collapse: collapse;" cellpadding="0">
+            </table>
+        </div>
+        <script src="../js/admin.js"></script>
     </body>
 
 </html>

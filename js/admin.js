@@ -10,8 +10,6 @@ function save() {
     let pass = document.getElementById('pass').value;
     let address = document.getElementById('address').value;
     let classElem = document.getElementById('class').value;
-    let subject = document.getElementById('subject').value
-    let point = document.getElementById('point').value;
     let gender = '';
 
     // Kiểm tra form
@@ -34,7 +32,7 @@ function save() {
         let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
 
         // Nếu đang ở chế độ cập nhật, giữ nguyên userId của sinh viên
-        let userId = editingIndex !== null ? students[editingIndex].userId : Math.ceil(Math.random() * 100000000);
+        let userId = editingIndex !== null ? students[editingIndex].userId : Math.ceil(Math.random() * 1000000);
 
         let studentData = {
             userId: userId,
@@ -45,7 +43,6 @@ function save() {
             phoneNumber: phone,
             password: pass,
             class: classElem,
-            point: point,
             address: address,
             gender: gender
         };
@@ -80,19 +77,19 @@ function renderListStudent(students = null) {
     document.getElementById('list-student').style.display = 'block';
 
     let tableContent = `<tr>
-        <td>#</td>
-        <td>Image</td>
-        <td>Họ và tên</td>
-        <td>Ngày sinh</td>
-        <td>Email</td>
-        <td>Điện thoại</td>
-        <td>Password</td>
-        <td>Lớp</td>
-        <td>Môn</td>
-        <td>Điểm tb</td>
-        <td>Quê quán</td>
-        <td>Giới tính</td>
-        <td>Hành động</td>
+        <th>#</th>
+        <th>Image</th>
+        <th>Họ và tên</th>
+        <th>Ngày sinh</th>
+        <th>Email</th>
+        <th>Điện thoại</th>
+        <th>Password</th>
+        <th>Lớp</th>
+        <th>Môn</th>
+        <th>Điểm tb</th>
+        <th>Quê quán</th>
+        <th>Giới tính</th>
+        <th>Hành động</th>
     </tr>`;
 
     students.forEach((student, index) => {
@@ -109,7 +106,7 @@ function renderListStudent(students = null) {
             <td>${student.class}</td>
             <td><a href='#' onclick='classSubject(${student.userId})'>Chi tiết</a></td>
 
-            <td><a href ='#'onclick = 'classPoint()'>Chi tiết</a></td>
+            <td><a href ='#'onclick = 'classPoint(${student.userId})'>Chi tiết</a></td>
             <td>${student.address}</td>
             <td>${genderTable}</td>
             <td>
@@ -178,12 +175,6 @@ function findByName() {
     renderListStudent(filteredStudents);
 }
 
-function classPoint(){
-    setTimeout(function(){
-        window.location.href="admin_point.html"
-    },2000)
-    
-}
 // menu popup
 document.getElementById('menuButton').addEventListener('click', function() {
     const popup = document.getElementById('searchPopup');
@@ -195,3 +186,14 @@ function classSubject(userId) {
         window.location.href = `admin_subject.html?id=${userId}`;
     }, 200);
 }
+// chi tiet diem theo id
+function classPoint(userId) {
+    setTimeout(function() {
+        window.location.href = `admin_point.html?id=${userId}`;
+    }, 200);
+}
+// Đăng suất
+function Logout(){
+    window.location.href="index.html"
+}
+

@@ -11,19 +11,9 @@
 
 <body>
 
-    <body onload="renderListStudent()">
+    <body onload="renderListSubject()">
         <div class="form-student">
             <h3>Thông tin môn học của sinh viên</h3>
-            <label for="">Ảnh</label>
-            <p>image</p>
-
-            <label for="">Họ và tên</label>
-            <input type="text" id="fullname" required>
-            <span id="fullname-error"></span>
-            <br>
-
-            <label for="">Lớp</label>
-            <input type="text" id="class">
             <br>
             <label for="">Tên môn</label>
             <input type="text" id="subject">
@@ -44,27 +34,27 @@
             <input type="text" id="subject_end">
             <br>
             <label for="">&nbsp;</label>
-            <button onclick="save()">Lưu lại</button>
-
-            <!-- <div class="list-student" id="list-student" style="float: left; position: absolute; right: 0%;top: 0;">
-            <h3>Danh sách môn học</h3>
-            <table id="list-students" width="750" border="1" style="text-align: center; border-collapse: collapse;" cellpadding="0">
-            </table>
-        </div> -->
+            <button onclick="saveSubject()">Lưu lại</button>
+            <button onclick="back()">Back</button>
             <!-- <table id="student-detail"></table> -->
-            <div class="list-student" id="list-student" style="float: left; position: absolute; right: 0%;top: 0;">
+            <div class="list-student" id="list-student">
                 <h3>Thông tin sinh viên</h3>
-                <table id="student-detail" width="750" border="1" style="text-align: center; border-collapse: collapse;"
+                <table id="student-detail" style="text-align: center; border-collapse: collapse;"
                     cellpadding="0">
                 </table>
             </div>
-            <div class="list-student" id="list-student" style="float: left; position: absolute; right: 0%;top: 40%;">
+            <div class="list-student" id="list-student" style="position: absolute;top: 50%;">
                 <h3>Thông tin môn học</h3>
-                <table id="list-students" width="750" border="1" style="text-align: center; border-collapse: collapse;"
+                <table id="list-subjects" style="text-align: center; border-collapse: collapse;"
                     cellpadding="0">
                 </table>
             </div>
-
+            <div class="list-student" id="list-student" style=" position: absolute; right: 0%; top: 70%; display: none;">
+                <h3>Thông tin điểm</h3>
+                <table id="list-points"  style="text-align: center; border-collapse: collapse;"
+                    cellpadding="0">
+                </table>
+            </div>
             <script src="../js/admin_subject.js"></script>
 
     </body>

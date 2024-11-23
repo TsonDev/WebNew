@@ -1,63 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="stylesheet" href="../css/admin.css">
-    
+    <link rel="stylesheet" href="../css/admin_point.css">
+
 </head>
+
 <body>
-    <body onload="renderListStudent()">
+
+    <body onload="renderListPoint()">
         <div class="form-student">
-            <h3>Thông tin sinh viên</h3>
-            <input type="file" id="image" accept="image/*">
-
-            <label for="">Họ và tên</label>
-            <input type="text" id="fullname" required>
-            <span id="fullname-error"></span>
+            <h3>Thông tin môn học của sinh viên</h3>
             <br>
-    
-            <label for="">Địa chỉ email</label>
-            <input type="email" id="email">
+            <label for="">Tên môn</label>
+            <input type="text" id="subject">
             <br>
-    
-            <label for="">Số điện thoại</label>
-            <input type="number" id="phone">
+            <label for="">Số tc</label>
+            <input type="number" id="soTc">
             <br>
-
-            <label for="">Password</label>
-            <input type="password" id="pass">
+            <label for="">Điểm tx1</label>
+            <input type="number" id="point_tx1">
             <br>
-            <label for="">Lớp</label>
-            <input type="text" id="class">
+            <label for="">Điểm tx2</label>
+            <input type="number" id="point_tx2">
             <br>
-            <label for="">Điểm tb</label>
-            <input type="number" id="point">
-            <br>
-            <label for="">Quê quán</label>
-            <input type="text" id="address">
-            <br>
-    
-            <label for="">Giới tính</label>
-            <input type="radio" id="male" value="1" name="gender">Nam
-            <input type="radio" id="female" value="2" name="gender">Nữ
+            <label for="">Điểm cuối kỳ</label>
+            <input type="number" id="point_kt">
             <br>
             <label for="">&nbsp;</label>
-            <button  onclick="save()">Lưu lại</button>
-            <!-- tim kiem -->
-    <div>
-        <input type="text" id="search-name" placeholder="Tìm kiếm theo tên" onkeyup="searchStudentByName()">
-        <BUTton onclick="findByName()">find</BUTton>
-    </div>
-    
-     <!-- ket thuc tim kiem -->
-      
-        <div class="list-student" id="list-student" style="float: left; position: absolute; right: 0%;top: 0;">
-            <h3>Danh sách sinh viên</h3>
-            <table id="list-students" width="750" border="1" style="text-align: center; border-collapse: collapse;" cellpadding="0">
-            </table>
-        </div>
-        <script src="../js/admin_class.js"></script>
-</body>
+            <button onclick="savePoint()">Lưu lại</button>
+            <button onclick="back()">Back</button>
+            <!-- <table id="student-detail"></table> -->
+            <div class="list-student" id="list-student" style=" position: absolute; right: 0%;top: 0; width: 60%;">
+                <h3>Thông tin sinh viên</h3>
+                <table id="student-detail"style="text-align: center; border-collapse: collapse;"
+                    cellpadding="0">
+                </table>
+            </div>
+            <div class="list-student" id="list-student" style=" position: absolute; right: 0%; top: 70%;">
+                <h3>Thông tin điểm</h3>
+                <table id="list-points"  style="text-align: center; border-collapse: collapse;"
+                    cellpadding="0">
+                </table>
+            </div>
+            <div class="list-student" id="list-student" style="position: absolute;top: 50%; display: none;">
+                <h3>Thông tin môn học</h3>
+                <table id="list-subjects" style="text-align: center; border-collapse: collapse;"
+                    cellpadding="0">
+                </table>
+            </div>
+
+            <script src="../js/admin_subject.js"></script>
+
+    </body>
+
 </html>
