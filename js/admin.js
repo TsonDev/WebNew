@@ -29,7 +29,7 @@ function save() {
     const reader = new FileReader();
     reader.onload = function(e) {
         const base64Image = e.target.result;
-        let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+        let students = localStorage.getItem('studentsData') ? JSON.parse(localStorage.getItem('studentsData')) : [];
 
         // Nếu đang ở chế độ cập nhật, giữ nguyên userId của sinh viên
         let userId = editingIndex !== null ? students[editingIndex].userId : Math.ceil(Math.random() * 1000000);
@@ -55,7 +55,7 @@ function save() {
 
         // Thêm sinh viên mới hoặc sinh viên cập nhật vào danh sách
         students.push(studentData);
-        localStorage.setItem('users', JSON.stringify(students));
+        localStorage.setItem('studentsData', JSON.stringify(students));
         renderListStudent();
     };
     
@@ -68,7 +68,7 @@ function save() {
 
 // Hàm hiển thị danh sách sinh viên
 function renderListStudent(students = null) {
-    students = students || JSON.parse(localStorage.getItem('users')) || [];
+    students = students || JSON.parse(localStorage.getItem('studentsData')) || [];
 
     if (students.length === 0) {
         document.getElementById('list-student').style.display = 'none';
@@ -120,15 +120,15 @@ function renderListStudent(students = null) {
 
 // Hàm xóa sinh viên
 function deleteStudent(id) {
-    let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+    let students = localStorage.getItem('studentsData') ? JSON.parse(localStorage.getItem('studentsData')) : [];
     students.splice(id, 1);
-    localStorage.setItem('users', JSON.stringify(students));
+    localStorage.setItem('studentsData', JSON.stringify(students));
     renderListStudent();
 }
 
 // Hàm chỉnh sửa sinh viên
 function editStudent(id) {
-    let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+    let students = localStorage.getItem('studentsData') ? JSON.parse(localStorage.getItem('studentsData')) : [];
     let student = students[id];
 
     if (student) {
@@ -156,7 +156,7 @@ function editStudent(id) {
 // Hàm tìm kiếm theo id
 function findById() {
     let searchName = document.getElementById('search-id').value.trim();
-    let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+    let students = localStorage.getItem('studentsData') ? JSON.parse(localStorage.getItem('studentsData')) : [];
 
     let filteredStudents = students.filter(student => 
         student.userId.toString().includes(searchName)
@@ -166,7 +166,7 @@ function findById() {
 }
 function findByName() {
     let searchName = document.getElementById('search-name').value.trim().toLowerCase();
-    let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+    let students = localStorage.getItem('studentsData') ? JSON.parse(localStorage.getItem('studentsData')) : [];
 
     let filteredStudents = students.filter(student => 
         student.userName.toString().toLowerCase().includes(searchName)

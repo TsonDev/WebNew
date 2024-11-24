@@ -13,7 +13,7 @@ formsigninElement.addEventListener('submit', function(e) {
 
     // Tìm kiếm user và admin
     const findUser = userLocal.find(user =>
-        user.emailAddress === usernameElement.value && user.password === passwordElement.value
+        user.emailAddress.trim() === usernameElement.value && user.password === passwordElement.value
     );
     const findUserAd = userLocalAd.find(user =>
         user.userName === usernameElement.value && user.password === passwordElement.value
