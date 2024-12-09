@@ -11,11 +11,21 @@
     <!-- form đăng kí -->
      <div class="container">
         <form action="" class="form-signup" id="formsignup">
-            <h3>Đăng kí tài khoản</h3>
+            <h3 style="text-align: center;">Đăng kí tài khoản</h3>
+            <div class="mb-3">
+              <label for="maSV" class="form-label">MSV</label>
+              <input type="number" class="form-control" id="maSV" placeholder="nhập mã sinh viên">
+              <span id="maSVError" style="color: red;"></span>
+            </div>
             <div class="mb-3">
                 <label for="userName" class="form-label">Họ và tên</label>
                 <input type="text" class="form-control" id="userName" placeholder="nhập họ và tên">
                 <span id="userNameError" style="color: red;"></span>
+              </div>
+              <div class="mb-3">
+                <label for="birthDay" class="form-label">Ngày sinh</label>
+                <input type="text" class="form-control" id="birthDay" placeholder="20-01-2000">
+                <span id="birthDayError" style="color: red;"></span>
               </div>
               <div class="mb-3">
                 <label for="phoneNumber" class="form-label">Số điện thoại</label>
@@ -48,10 +58,6 @@
                 <input type="radio" name="gender" id="male">
                 <label for="female" value="2">Nữ</label>
                 <input type="radio" name="gender" id="female">
-              </div>
-              <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
               </div>
               <button type="submit" class="btn btn-primary" style="width: 100%;">Đăng kí</button>
               <p class="text-center">

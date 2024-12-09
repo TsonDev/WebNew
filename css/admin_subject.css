@@ -3,47 +3,112 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
-    display: flex;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(159,164,242,1) 0%, rgba(0,212,255,1) 100%);
+    /* display: flex;  */
     justify-content: space-between;
-    padding: 20px;
 }
 
-/* Form thông tin môn học */
+/* Nút menu */
+#menuButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    z-index: 1000;
+}
+
+#menuButton:hover {
+    background-color: #0056b3;
+}
+
+/* Popup tìm kiếm */
+.popup {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 250px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    z-index: 100;
+    display: none;
+}
+
+.popup input[type="text"] {
+    width: 92%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.popup button {
+    width: 100%;
+    padding: 8px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.popup button:hover {
+    background-color: #0056b3;
+}
+
+/* Form thông tin sinh viên */
 .form-student {
-    width: 30%;
+    width: 20%;
+    margin: 20px;
     padding: 20px;
-    background-color: #fff;
+    border: 1px solid #ccc;
     border-radius: 10px;
+    background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-right: 20px;
 }
 
 .form-student h3 {
     text-align: center;
     color: #333;
+    margin-bottom: 10px;
     font-size: 20px;
     font-weight: bold;
-    margin-bottom: 20px;
 }
 
 .form-student label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
     color: #555;
     font-weight: bold;
 }
 
 .form-student input[type="text"],
+.form-student input[type="email"],
 .form-student input[type="number"],
-.form-student input[type="date"] {
+.form-student input[type="password"],
+.form-student input[type="file"] {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 5px;
+    margin-bottom: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
     box-sizing: border-box;
+}
+
+.form-student input[type="radio"] {
+    margin-right: 5px;
 }
 
 .form-student button {
@@ -55,40 +120,69 @@ body {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 10px;
 }
 
 .form-student button:hover {
     background-color: #218838;
 }
 
-.form-student button:last-child {
-    background-color: #007bff;
-    margin-top: 10px;
-}
-
-.form-student button:last-child:hover {
-    background-color: #0056b3;
-}
-
-/* Danh sách môn học và sinh viên */
+/* Danh sách sinh viên */
 .list-student {
-    width: 65%;
-    padding: 20px;
-    background-color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
     border-radius: 10px;
+    background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow-x: auto;
-    max-height: 500px;
-}
+    width: 70%;
+    
+}  
 
-#list-students,
-#student-detail {
-    width: 100%;
+#list-students {
+    width: 100%; /* Đảm bảo bảng chiếm toàn bộ chiều rộng phần tử chứa */
+    overflow-x: auto; /* Cho phép cuộn ngang */
+    max-height: 300px; /* Đặt chiều cao tối đa cho bảng */
     border-collapse: collapse;
     text-align: center;
 }
 
+#list-students th,
+#list-students td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    white-space: nowrap; /* Không cho phép xuống dòng */
+}
+
+#list-students th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+#list-students tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#list-students tr:hover {
+    background-color: #e8f0fe;
+}
+
+#list-students td {
+    color: #333;
+}
+span{
+    display: none;
+}
+#list-students th,
+#student-detail th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
 #list-students th,
 #student-detail th,
 #list-students td,
@@ -96,16 +190,7 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     font-size: 14px;
-    white-space: nowrap; /* Không cho phép xuống dòng */
 }
-
-#list-students th,
-#student-detail th {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-}
-
 #list-students tr:nth-child(even),
 #student-detail tr:nth-child(even) {
     background-color: #f2f2f2;
@@ -120,16 +205,6 @@ body {
 #student-detail td {
     color: #333;
 }
-
-/* Responsive layout */
-@media (max-width: 768px) {
-    body {
-        flex-direction: column;
-    }
-
-    .form-student,
-    .list-student {
-        width: 100%;
-        margin: 10px 0;
-    }
+th,td{
+    width: 150px;
 }

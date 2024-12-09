@@ -12,63 +12,126 @@ function save() {
     let classElem = document.getElementById('class').value;
     let gender = '';
 
-    // Kiểm tra form
+    let isValid = true; // Cờ kiểm tra hợp lệ
+
+    // Kiểm tra hình ảnh
+    if (!imageInput.files || imageInput.files.length === 0) {
+        document.getElementById("imageError").style.display = 'block';
+        isValid = false;
+    } else {
+        document.getElementById("imageError").style.display = 'none';
+    }
+
+    // Kiểm tra giới tính
     if (document.getElementById('male').checked) {
         gender = document.getElementById('male').value;
     } else if (document.getElementById('female').checked) {
         gender = document.getElementById('female').value;
     }
-    if (fullname === '') {
+
+    // Kiểm tra họ tên
+    if (!fullname) {
+        document.getElementById('fullname-error').style.display = "block";
         document.getElementById('fullname-error').innerHTML = "Vui lòng nhập họ và tên!";
-        return;
+        isValid = false;
+    } else if (fullname.length > 30) {
+        document.getElementById('fullname-error').style.display = "block";
+        document.getElementById('fullname-error').innerHTML = "Tên tối đa 30 ký tự!";
+        isValid = false;
     } else {
+        document.getElementById('fullname-error').style.display = "none";
         document.getElementById('fullname-error').innerHTML = '';
     }
 
-    // Chuyển ảnh thành base64 và xử lý lưu vào localStorage
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const base64Image = e.target.result;
-        let students = localStorage.getItem('studentsData') ? JSON.parse(localStorage.getItem('studentsData')) : [];
+    // Kiểm tra ngày sinh
+    if (!validateDate(birthday)) {
+        document.getElementById('birthdayError').style.display = "block";
+        document.getElementById('birthdayError').innerHTML = 'Nhập lại theo định dạng dd-mm-yyyy';
+        isValid = false;
+    } else {
+        document.getElementById('birthdayError').style.display = "none";
+        document.getElementById('birthdayError').innerHTML = '';
+    }
 
-        // Nếu đang ở chế độ cập nhật, giữ nguyên userId của sinh viên
-        let userId = editingIndex !== null ? students[editingIndex].userId : Math.ceil(Math.random() * 1000000);
+    // Kiểm tra số điện thoại
+    if (!phone || phone.length !== 10 || !/^\d+$/.test(phone)) {
+        document.getElementById('phoneError').style.display = "block";
+        document.getElementById('phoneError').innerHTML = 'Số điện thoại phải có đúng 10 chữ số!';
+        isValid = false;
+    } else {
+        document.getElementById('phoneError').style.display = "none";
+        document.getElementById('phoneError').innerHTML = '';
+    }
 
-        let studentData = {
-            userId: userId,
-            image: base64Image, // Lưu ảnh dưới dạng base64
-            userName: fullname,
-            userBirth : birthday,
-            emailAddress: email,
-            phoneNumber: phone,
-            password: pass,
-            class: classElem,
-            address: address,
-            gender: gender
+    // Kiểm tra email
+    if (!validateEmail(email)) {
+        document.getElementById('emailError').style.display = "block";
+        document.getElementById('emailError').innerHTML = 'Nhập đúng định dạng email!';
+        isValid = false;
+    } else {
+        document.getElementById('emailError').style.display = "none";
+        document.getElementById('emailError').innerHTML = '';
+    }
+
+    // Kiểm tra mật khẩu
+    if (!pass) {
+        document.getElementById('passError').style.display = "none";
+        document.getElementById('passError').innerHTML = 'Mật khẩu không được để trống!';
+        isValid = false;
+    } else {
+        document.getElementById('passError').style.display = "none";
+        document.getElementById('passError').innerHTML = '';
+    }
+
+    // Kiểm tra nếu tất cả các thông tin cần thiết đã được nhập
+    if (!fullname || !phone || !email || !pass || !imageInput.files || imageInput.files.length === 0) {
+        alert("Nhập đầy đủ thông tin");
+        isValid = false;
+    }
+
+    // Nếu form hợp lệ
+    if (isValid) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const base64Image = e.target.result;
+            let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+
+            // Nếu đang ở chế độ cập nhật, giữ nguyên userId của sinh viên
+            let userId = editingIndex !== null ? students[editingIndex].userId : Math.ceil(Math.random() * 1000000);
+            let studentData = {
+                userId: userId,
+                image: base64Image, // Lưu ảnh dưới dạng base64
+                userName: fullname,
+                userBirth : birthday,
+                emailAddress: email,
+                phoneNumber: phone,
+                password: pass,
+                class: classElem,
+                address: address,
+                gender: gender
+            };
+
+            // Nếu đang ở chế độ cập nhật, xóa sinh viên cũ và thêm bản mới
+            if (editingIndex !== null) {
+                students.splice(editingIndex, 1); // Xóa sinh viên cũ
+                editingIndex = null; // Reset lại chế độ chỉnh sửa
+            }
+
+            // Thêm sinh viên mới hoặc sinh viên cập nhật vào danh sách
+            students.push(studentData);
+            localStorage.setItem('users', JSON.stringify(students));
+            renderListStudent();
+            alert("Lưu thành công")
         };
 
-        // Nếu đang ở chế độ cập nhật, xóa sinh viên cũ và thêm bản mới
-        if (editingIndex !== null) {
-            students.splice(editingIndex, 1); // Xóa sinh viên cũ
-            editingIndex = null; // Reset lại chế độ chỉnh sửa
-        }
-
-        // Thêm sinh viên mới hoặc sinh viên cập nhật vào danh sách
-        students.push(studentData);
-        localStorage.setItem('studentsData', JSON.stringify(students));
-        renderListStudent();
-    };
-    
-    if (imageInput.files[0]) {
         reader.readAsDataURL(imageInput.files[0]);
-    } else {
-        alert('Vui lòng chọn một ảnh');
     }
 }
 
+
 // Hàm hiển thị danh sách sinh viên
 function renderListStudent(students = null) {
-    students = students || JSON.parse(localStorage.getItem('studentsData')) || [];
+    students = students || JSON.parse(localStorage.getItem('users')) || [];
 
     if (students.length === 0) {
         document.getElementById('list-student').style.display = 'none';
@@ -77,7 +140,7 @@ function renderListStudent(students = null) {
     document.getElementById('list-student').style.display = 'block';
 
     let tableContent = `<tr>
-        <th>#</th>
+        <th>MSV</th>
         <th>Image</th>
         <th>Họ và tên</th>
         <th>Ngày sinh</th>
@@ -120,15 +183,16 @@ function renderListStudent(students = null) {
 
 // Hàm xóa sinh viên
 function deleteStudent(id) {
-    let students = localStorage.getItem('studentsData') ? JSON.parse(localStorage.getItem('studentsData')) : [];
+    let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
     students.splice(id, 1);
-    localStorage.setItem('studentsData', JSON.stringify(students));
+    localStorage.setItem('users', JSON.stringify(students));
+    // alert("Xóa thành công")
     renderListStudent();
 }
 
 // Hàm chỉnh sửa sinh viên
 function editStudent(id) {
-    let students = localStorage.getItem('studentsData') ? JSON.parse(localStorage.getItem('studentsData')) : [];
+    let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
     let student = students[id];
 
     if (student) {
@@ -147,7 +211,7 @@ function editStudent(id) {
         }
 
         editingIndex = id; // Đặt chế độ chỉnh sửa
-        // alert("Cập nhật sinh viên thành công")
+        
     } else {
         alert('Student not found');
     }
@@ -156,7 +220,7 @@ function editStudent(id) {
 // Hàm tìm kiếm theo id
 function findById() {
     let searchName = document.getElementById('search-id').value.trim();
-    let students = localStorage.getItem('studentsData') ? JSON.parse(localStorage.getItem('studentsData')) : [];
+    let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
 
     let filteredStudents = students.filter(student => 
         student.userId.toString().includes(searchName)
@@ -166,7 +230,7 @@ function findById() {
 }
 function findByName() {
     let searchName = document.getElementById('search-name').value.trim().toLowerCase();
-    let students = localStorage.getItem('studentsData') ? JSON.parse(localStorage.getItem('studentsData')) : [];
+    let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
 
     let filteredStudents = students.filter(student => 
         student.userName.toString().toLowerCase().includes(searchName)
@@ -195,5 +259,40 @@ function classPoint(userId) {
 // Đăng suất
 function Logout(){
     window.location.href="index.html"
+}
+// validate
+function validateDate(dateString) {
+    // Định dạng regex cho dd-mm-yyyy
+    const regex = /^(\d{2})-(\d{2})-(\d{4})$/;
+    const match = dateString.match(regex);
+
+    if (!match) {
+        return false; // Không khớp định dạng
+    }
+
+    // Tách ngày, tháng, năm từ chuỗi
+    const day = parseInt(match[1], 10);
+    const month = parseInt(match[2], 10);
+    const year = parseInt(match[3], 10);
+
+    // Kiểm tra năm, tháng, ngày hợp lệ
+    if (year < 1900 || year > new Date().getFullYear()) {
+        return false; // Năm không hợp lệ
+    }
+    if (month < 1 || month > 12) {
+        return false; // Tháng không hợp lệ
+    }
+
+    // Tính số ngày trong tháng
+    const daysInMonth = new Date(year, month, 0).getDate();
+    if (day < 1 || day > daysInMonth) {
+        return false; // Ngày không hợp lệ
+    }
+
+    return true; // Hợp lệ
+}
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
 

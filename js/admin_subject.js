@@ -2,7 +2,7 @@ let editingIndex = null; // Biến toàn cục để lưu vị trí subject đan
 let studentId = new URLSearchParams(window.location.search).get('id');
 let key = `subjects:${studentId}`;
 let subjects = localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : [];
-let subjectId = editingIndex !== null ? subjects[editingIndex].subjectId : Math.ceil(Math.random() * 100000000);
+let subjectId = editingIndex !== null ? subjects[editingIndex].subjectId : Math.ceil(Math.random() * 1000000);
 // Hiển thị thông tin chi tiết sinh viên
 if (studentId) {
     let students = localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
@@ -10,7 +10,7 @@ if (studentId) {
 
     if (student) {
         let tableContent = `<tr>
-            <th>#</th>
+            <th>MSV</th>
             <th>Image</th>
             <th>Họ và tên</th>
             <th>Ngày sinh</th>
@@ -55,7 +55,33 @@ function saveSubject() {
         alert("Không tìm thấy ID sinh viên.");
         return;
     }
-
+    // validate
+    let isValid = true; // Cờ kiểm tra hợp lệ
+    // kiem tra ten mon
+    if (!subjectName) {
+        document.getElementById('subjectError').style.display = "block";
+        document.getElementById('subjectError').innerHTML = "Nhập tên môn!";
+        isValid = false;
+    
+    } else {
+        document.getElementById('subjectError').style.display = "none";
+        document.getElementById('subjectError').innerHTML = '';
+    }
+    // Kiểm tra họ tên
+    if (!teacher) {
+        document.getElementById('teacherError').style.display = "block";
+        document.getElementById('teacherError').innerHTML = "Vui lòng nhập họ và tên giảng viên!";
+        isValid = false;
+    } else {
+        document.getElementById('teacherError').style.display = "none";
+        document.getElementById('teacherError').innerHTML = '';
+    }
+    // Kiểm tra nếu tất cả các thông tin cần thiết đã được nhập
+    if (!subjectName || !subjectSoTc || !money || !teacher) {
+        alert("Nhập đầy đủ thông tin");
+        isValid = false;
+    }
+    if(isValid){
     let subjectData = {
         subjectId: subjectId,
         subjectName: subjectName,
@@ -82,6 +108,7 @@ function saveSubject() {
     console.log(subjects)
     alert("Lưu thành công!");
 }
+}
 function savePoint() {
     // Kiểm tra nếu có chỉ mục đang chỉnh sửa
     if (editingIndex === null) {
@@ -92,28 +119,54 @@ function savePoint() {
     // Lấy danh sách môn học từ localStorage
     let subjects = JSON.parse(localStorage.getItem(`subjects:${studentId}`)) || [];
     let subject = subjects[editingIndex]; // Xác định môn học cần chỉnh sửa
-
-    if (!subject) {
-        alert('Không tìm thấy môn học để lưu điểm.');
-        return;
-    }
+    // validat
 
     // Lấy giá trị điểm từ các ô nhập liệu
     let pointTx1 = parseFloat(document.getElementById('point_tx1').value);
     let pointTx2 = parseFloat(document.getElementById('point_tx2').value);
     let pointKt = parseFloat(document.getElementById('point_kt').value);
-
+    // validate
+    isValid2=true
+    if (!subject) {
+        alert('Không tìm thấy môn học để lưu điểm.');
+        return;
+    }
+    if(pointTx1<0 || pointTx1>10){
+        document.getElementById("point_tx1-error").style.display='block'
+        document.getElementById("point_tx1-error").innerHTML='Nhập điểm trong khoảng 0-10'
+        isValid2=false
+    }
+    else{
+        document.getElementById("point_tx1-error").style.display='none'
+    }
+    if(pointTx2<0 || pointTx2>10){
+        document.getElementById("point_tx2-error").style.display='block'
+        document.getElementById("point_tx2-error").innerHTML='Nhập điểm trong khoảng 0-10'
+        isValid2=false
+    }
+    else{
+        document.getElementById("point_tx2-error").style.display='none'
+    }
+    if(pointKt<0 || pointKt>10){
+        document.getElementById("point_kt-error").style.display='block'
+        document.getElementById("point_kt-error").innerHTML='Nhập điểm trong khoảng 0-10'
+        isValid2=false
+    }
+    else{
+        document.getElementById("point_kt-error").style.display='none'
+    }
+    
     // Kiểm tra điểm hợp lệ
-    if (isNaN(pointTx1) || isNaN(pointTx2) || isNaN(pointKt)) {
+    if (!isValid2) {
         alert('Vui lòng nhập đầy đủ và chính xác các điểm.');
         return;
     }
-
+    else{
     // Cập nhật điểm cho môn học
     subject.pointTx1 = pointTx1;
     subject.pointTx2 = pointTx2;
     subject.pointKt = pointKt;
-    subject.totalPoint = ((pointTx1 + pointTx2 + pointKt) / 3).toFixed(2); // Tính điểm trung bình
+    subject.totalPoint = ((pointTx1*0.2 + pointTx2*0.3 + pointKt*0.5)).toFixed(2); // Tính điểm trung bình
 
     // Lưu lại danh sách môn học vào localStorage
     localStorage.setItem(`subjects:${studentId}`, JSON.stringify(subjects));
@@ -124,6 +177,7 @@ function savePoint() {
     // Đặt lại chỉ mục chỉnh sửa và thông báo thành công
     editingIndex = null;
     alert('Lưu điểm thành công!');
+    }
 }
 
 

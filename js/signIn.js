@@ -10,7 +10,7 @@ formsigninElement.addEventListener('submit', function(e) {
     // Lấy dữ liệu người dùng từ localStorage
     const userLocal = JSON.parse(localStorage.getItem('users')) || [];
     const userLocalAd = JSON.parse(localStorage.getItem('usersAd')) || [];
-
+    
     // Tìm kiếm user và admin
     const findUser = userLocal.find(user =>
         user.emailAddress.trim() === usernameElement.value && user.password === passwordElement.value
@@ -18,8 +18,10 @@ formsigninElement.addEventListener('submit', function(e) {
     const findUserAd = userLocalAd.find(user =>
         user.userName === usernameElement.value && user.password === passwordElement.value
     );
-
-    if (findUser) {
+    if(usernameElement.value==""&& passwordElement.value==""){
+        alert("Nhập đủ thông tin")
+    }
+    else if (findUser) {
         // Lưu trữ thông tin người dùng để hiển thị trên index.html
         localStorage.setItem('currentUser', JSON.stringify(findUser));
         window.location.href = 'index.html';

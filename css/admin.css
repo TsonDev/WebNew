@@ -3,7 +3,8 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(159,164,242,1) 0%, rgba(0,212,255,1) 100%);
     /* display: flex;  */
     justify-content: space-between;
 }
@@ -138,7 +139,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 70%;
     overflow-x: auto; /* Cho phép cuộn ngang */
-    max-height: 500px; /* Đặt chiều cao tối đa */
+    /* max-height: 500px; Đặt chiều cao tối đa */
 }
 
 #list-students {
@@ -173,4 +174,7 @@ body {
 
 #list-students td {
     color: #333;
+}
+span{
+    display: none;
 }

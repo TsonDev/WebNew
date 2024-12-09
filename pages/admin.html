@@ -34,24 +34,31 @@
             <h3>Thông tin sinh viên</h3>
             <label for="">Ảnh</label>
             <input type="file" id="image" accept="image/*">
-
+            <span id="imageError" style="color: red;">Chưa có ảnh</span>
+            <br>
+            <!-- <label for="">File</label>
+            <input type="file" id="uploadExcel" accept=".xlsx, .xls" /> -->
             <label for="">Họ và tên</label>
             <input type="text" id="fullname" required>
             <span id="fullname-error"></span>
             <br>
             <label for="">Ngày sinh</label>
             <input type="text" id="birthday" placeholder="01-01-2000">
+            <span style="color: red; display: none;" id="birthdayError"></span>
             <br>
             <label for="">Địa chỉ email</label>
             <input type="email" id="email" placeholder="a@gmail.com">
+            <span style="color: red; display: none;" id="emailError"></span>
             <br>
 
             <label for="">Số điện thoại</label>
             <input type="number" id="phone">
+            <span style="color: red; display: none;" id="phoneError"></span>
             <br>
 
             <label for="">Password</label>
             <input type="password" id="pass">
+            <span style="color: red; display: none;" id="passError"></span>
             <br>
             <label for="">Lớp</label>
             <input type="text" id="class">
@@ -86,14 +93,14 @@
             </table>
         </div>
         <script src="../js/admin.js"></script>
-        <script src="../js/exampData.js"></script>
-        <script>
+        <!-- <script src="../js/exampData.js"></script> -->
+        <!-- <script>
             // Lưu sampleDataOfStudents vào localStorage
             localStorage.setItem('studentsData', JSON.stringify(user));
         
             // Kiểm tra đã lưu thành công chưa
             console.log(localStorage.getItem('studentsData'));
-        </script>
+        </script> -->
     </body>
 
 </html>
