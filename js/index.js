@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log(currentUser)
     let tableContent = `<tr>
-        <th>#</th>
+        <th>MSV</th>
         <th>Image</th>
         <th>Họ và tên</th>
         <th>Ngày sinh</th>
@@ -153,7 +153,7 @@ function classSubject() {
     }
 
     let tableContent = `<tr>
-        <th>#</th>
+        <th>Mã môn</th>
         <th>Tên môn</th>
         <th>Số tc</th>
         <th>Giá</th>
@@ -165,7 +165,7 @@ function classSubject() {
 
     subjects.forEach((subject, index) => {
         tableContent += `<tr>
-            <td>${index + 1}</td>
+            <td>${subject.subjectId}</td>
             <td>${subject.subjectName}</td>
             <td>${subject.subjectSoTc}</td>
             <td>${subject.money}</td>
@@ -193,7 +193,7 @@ function classPoint() {
     }
 
     let tableContent = `<tr>
-    <th>#</th>
+    <th>STT</th>
     <th>Tên môn</th>
     <th>Số tc</th>
     <th>Điểm TX1</th>

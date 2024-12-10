@@ -3,6 +3,12 @@ const formsigninElement = document.getElementById('formsignin');
 const usernameElement = document.getElementById('username');
 const passwordElement = document.getElementById('password');
 
+// Đặt trường nhập mật khẩu thành kiểu 'password' và ngăn sao chép
+passwordElement.type = 'password';
+passwordElement.setAttribute('oncopy', 'return false');
+passwordElement.setAttribute('onpaste', 'return false');
+passwordElement.setAttribute('oncut', 'return false');
+
 // Bắt sự kiện submit
 formsigninElement.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -16,12 +22,12 @@ formsigninElement.addEventListener('submit', function(e) {
         user.emailAddress.trim() === usernameElement.value && user.password === passwordElement.value
     );
     const findUserAd = userLocalAd.find(user =>
-        user.userName === usernameElement.value && user.password === passwordElement.value
+        user.emailAddress === usernameElement.value && user.password === passwordElement.value
     );
-    if(usernameElement.value==""&& passwordElement.value==""){
-        alert("Nhập đủ thông tin")
-    }
-    else if (findUser) {
+
+    if (usernameElement.value === "" && passwordElement.value === "") {
+        alert("Nhập đủ thông tin");
+    } else if (findUser) {
         // Lưu trữ thông tin người dùng để hiển thị trên index.html
         localStorage.setItem('currentUser', JSON.stringify(findUser));
         window.location.href = 'index.html';

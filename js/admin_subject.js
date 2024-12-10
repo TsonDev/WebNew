@@ -83,7 +83,7 @@ function saveSubject() {
     }
     if(isValid){
     let subjectData = {
-        subjectId: subjectId,
+        subjectId: Math.floor(100000 + Math.random() * 900000),
         subjectName: subjectName,
         subjectSoTc: subjectSoTc,
         money: money_last,
@@ -254,7 +254,7 @@ function renderListSubject(subjects = null) {
     subjects = subjects || JSON.parse(localStorage.getItem(`subjects:${studentId}`)) || [];
 
     let tableContent = `<tr>
-        <th>#</th>
+        <th>id</th>
         <th>Tên môn</th>
         <th>Số tc</th>
         <th>Giá</th>
@@ -266,7 +266,7 @@ function renderListSubject(subjects = null) {
 
     subjects.forEach((subject, index) => {
         tableContent += `<tr>
-            <td>${index + 1}</td>
+            <td>${subject.subjectId}</td>
             <td>${subject.subjectName}</td>
             <td>${subject.subjectSoTc}</td>
             <td>${subject.money}</td>
@@ -293,7 +293,7 @@ function renderListPoint(subjects = null) {
     }
 
     let tableContent = `<tr>
-        <th>#</th>
+        <th>STT</th>
         <th>Tên môn</th>
         <th>Số tc</th>
         <th>Điểm TX1</th>
